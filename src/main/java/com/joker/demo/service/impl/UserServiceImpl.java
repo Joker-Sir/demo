@@ -11,7 +11,8 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    final UserMapper userMapper;
+    @Autowired
+    UserMapper userMapper;
 
     public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
