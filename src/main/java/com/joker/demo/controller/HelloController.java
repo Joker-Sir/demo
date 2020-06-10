@@ -3,22 +3,39 @@ package com.joker.demo.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joker.demo.pojo.User;
 import com.joker.demo.service.UserService;
+import com.joker.demo.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.PrintStream;
 import java.util.List;
+import java.util.Properties;
 
 @RestController
 @RequestMapping("hello")
+@PropertySource("classpath:default.properties")
+@Slf4j
 public class HelloController {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private UserService userService;
+
+    @Value("${welcome}")
+    private String welcome;
+
+    @Autowired
+    private ApplicationContext context;
 
     @Autowired
     HelloController(UserService userService){
@@ -27,14 +44,17 @@ public class HelloController {
 
     @RequestMapping(value = "/sayHi/{name}" , method = RequestMethod.GET)
     public String sayHello(@PathVariable(name = "name")String name){
-        return "hello " + name;
+        return welcome + " hello " + name;
     }
 
     @RequestMapping(value = "/findAllUsers" , method = RequestMethod.GET)
     public String findAllUsers() throws Exception{
-        List<User> allUsers = userService.findAllUsers();
+        // List<User> allUsers = userService.findAllUsers();
+        UserServiceImpl service = (UserServiceImpl)context.getBean("userServiceImpl");
+        List<User> allUsers = service.findAllUsers();
         String result = objectMapper.writeValueAsString(allUsers);
         return result;
     }
+
 
 }
