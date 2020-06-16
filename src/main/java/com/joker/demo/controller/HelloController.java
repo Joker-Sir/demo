@@ -14,16 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.PrintStream;
 import java.util.List;
-import java.util.Properties;
 
 @RestController
 @RequestMapping("hello")
-@PropertySource("classpath:default.properties")
+@PropertySource("classpath:exam.properties")
 @Slf4j
 public class HelloController {
 
