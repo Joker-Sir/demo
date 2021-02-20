@@ -1,4 +1,4 @@
-package com.joker.demo.designModal.builderPattern;
+package com.joker.demo.designModal.builderpattern;
 
 /**
  * 抽象电脑类

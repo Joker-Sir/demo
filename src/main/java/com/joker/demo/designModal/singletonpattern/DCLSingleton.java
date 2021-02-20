@@ -1,4 +1,4 @@
-package com.joker.demo.designModal.singletonPattern;
+package com.joker.demo.designModal.singletonpattern;
 
 
 /***

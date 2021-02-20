@@ -1,4 +1,4 @@
-package com.joker.demo.designModal.builderPattern;
+package com.joker.demo.designModal.builderpattern;
 
 import lombok.Builder;
 import lombok.Data;

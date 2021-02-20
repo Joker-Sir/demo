@@ -1,4 +1,4 @@
-package com.joker.demo.designModal.builderPattern;
+package com.joker.demo.designModal.builderpattern;
 
 public abstract class Builder {
 
