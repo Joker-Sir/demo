@@ -1,6 +1,7 @@
 package com.joker.demo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joker.demo.annotation.NotNullCheck;
 import com.joker.demo.pojo.User;
 import com.joker.demo.service.UserService;
 import com.joker.demo.service.impl.UserServiceImpl;
@@ -38,6 +39,7 @@ public class HelloController {
     }
 
     @RequestMapping(value = "/sayHi/{name}" , method = RequestMethod.GET)
+    @NotNullCheck
     public String sayHello(@PathVariable(name = "name")String name){
         return welcome + " hello " + name;
     }

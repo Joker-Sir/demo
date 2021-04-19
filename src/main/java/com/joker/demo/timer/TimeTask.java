@@ -3,7 +3,6 @@ package com.joker.demo.timer;
 
 import com.joker.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -23,20 +22,16 @@ public class TimeTask {
             new LinkedBlockingQueue<Runnable>());
 
 
-    @Scheduled(cron = "0/30 * * * * ?")
+    // @Scheduled(cron = "0/30 * * * * ?")
     public void timer(){
         for (int i = 0; i < 50; i++) {
-
-            threadPoolExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    service.findAllUsers();
-                    try {
-
-                        Thread.sleep(5000L);
-                    }catch (Exception e){}
-                    System.out.println(new Date());
+            threadPoolExecutor.execute(() -> {
+                service.findAllUsers();
+                try {
+                    Thread.sleep(5000L);
+                } catch (Exception e) {
                 }
+                System.out.println(new Date());
             });
         }
     }
