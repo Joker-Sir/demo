@@ -1,8 +1,9 @@
 package com.joker.demo.util;
 
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -15,14 +16,14 @@ public class LamdbaExpression {
     public void testFunction(){
         Function<String,String> function = (old) -> old + "+mes";
         String result = function.apply("wh");
-        Assert.assertEquals("wh+mes","wh+mes");
+        Assertions.assertEquals("wh+mes","wh+mes");
     }
 
     @Test
     public void testPredicate(){
         Predicate<String> predicate = (x)->x.endsWith("txt");
         predicate.test("filetxt");
-        Assert.assertEquals(true,predicate.test("filetxt"));
+        Assertions.assertEquals(true,predicate.test("filetxt"));
     }
 
     @Test

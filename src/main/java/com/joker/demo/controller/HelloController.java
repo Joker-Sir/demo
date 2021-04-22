@@ -2,18 +2,19 @@ package com.joker.demo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joker.demo.annotation.NotNullCheck;
+import com.joker.demo.eventlistener.simple.event.SmsEvent;
 import com.joker.demo.pojo.User;
+import com.joker.demo.service.SmsService;
 import com.joker.demo.service.UserService;
 import com.joker.demo.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class HelloController {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private UserService userService;
+    private SmsService smsService;
 
     @Value("${welcome}")
     private String welcome;
@@ -34,8 +36,9 @@ public class HelloController {
     private ApplicationContext context;
 
     @Autowired
-    HelloController(UserService userService){
+    HelloController(UserService userService, SmsService smsService){
         this.userService = userService;
+        this.smsService = smsService;
     }
 
     @RequestMapping(value = "/sayHi/{name}" , method = RequestMethod.GET)
@@ -51,6 +54,12 @@ public class HelloController {
         List<User> allUsers = service.findAllUsers();
         String result = objectMapper.writeValueAsString(allUsers);
         return result;
+    }
+
+    @RequestMapping(value = "sendSms", method = RequestMethod.GET)
+    public String sendSms(String telephone){
+        smsService.sendSms(telephone);
+        return "发送成功";
     }
 
 
