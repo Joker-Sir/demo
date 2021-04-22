@@ -1,7 +1,9 @@
 package com.joker.demo.eventlistener.annotationbased.event;
 
+import lombok.Data;
 import org.springframework.context.ApplicationEvent;
 
+@Data
 public class WechatEvent extends ApplicationEvent {
 
     String content;

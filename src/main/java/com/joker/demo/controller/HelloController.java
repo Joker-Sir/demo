@@ -62,6 +62,7 @@ public class HelloController {
     @RequestMapping(value = "sendSms", method = RequestMethod.GET)
     public String sendSms(String telephone){
         smsService.sendSms(telephone);
+        System.out.println("信息已返回");
         return "发送成功";
     }
 
