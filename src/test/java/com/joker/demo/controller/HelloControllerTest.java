@@ -25,4 +25,10 @@ public class HelloControllerTest {
         String none = helloController.sendSms("119");
         Assertions.assertEquals("发送成功", sms);
     }
+
+    @Test
+    void testNotify() {
+        String notify = helloController.notify("warning");
+        Assertions.assertEquals("发送成功", notify);
+    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joker.demo.annotation.NotNullCheck;
 import com.joker.demo.eventlistener.simple.event.SmsEvent;
 import com.joker.demo.pojo.User;
+import com.joker.demo.service.NotifierService;
 import com.joker.demo.service.SmsService;
 import com.joker.demo.service.UserService;
 import com.joker.demo.service.impl.UserServiceImpl;
@@ -28,6 +29,7 @@ public class HelloController {
 
     private UserService userService;
     private SmsService smsService;
+    private NotifierService notifierService;
 
     @Value("${welcome}")
     private String welcome;
@@ -36,9 +38,10 @@ public class HelloController {
     private ApplicationContext context;
 
     @Autowired
-    HelloController(UserService userService, SmsService smsService){
+    HelloController(UserService userService, SmsService smsService, NotifierService notifierService){
         this.userService = userService;
         this.smsService = smsService;
+        this.notifierService = notifierService;
     }
 
     @RequestMapping(value = "/sayHi/{name}" , method = RequestMethod.GET)
@@ -59,6 +62,12 @@ public class HelloController {
     @RequestMapping(value = "sendSms", method = RequestMethod.GET)
     public String sendSms(String telephone){
         smsService.sendSms(telephone);
+        return "发送成功";
+    }
+
+    @RequestMapping(value = "notify", method = RequestMethod.GET)
+    public String notify(String content){
+        notifierService.notify(content);
         return "发送成功";
     }
 
