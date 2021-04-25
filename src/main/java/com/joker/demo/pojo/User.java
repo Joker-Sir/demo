@@ -5,6 +5,10 @@ import lombok.Data;
 @Data
 public class User {
 
+    public User(Dog dog){
+
+    }
+
     private Long id;
 
     private String username;

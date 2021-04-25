@@ -3,6 +3,8 @@ package com.joker.demo.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joker.demo.annotation.NotNullCheck;
 import com.joker.demo.eventlistener.simple.event.SmsEvent;
+import com.joker.demo.justlook.note.ConfigurationAnno;
+import com.joker.demo.pojo.Dog;
 import com.joker.demo.pojo.User;
 import com.joker.demo.service.NotifierService;
 import com.joker.demo.service.SmsService;
@@ -17,6 +19,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -66,8 +69,13 @@ public class HelloController {
         return "发送成功";
     }
 
+    @Autowired
+    ConfigurationAnno anno;
+
     @RequestMapping(value = "notify", method = RequestMethod.GET)
     public String notify(String content){
+        System.out.println("anno.getDog().hashCode()1 ==----=-==== " + anno.getDog() + "  " + anno.getDog().hashCode());
+        System.out.println("anno.getDog().hashCode()2 ==----=-==== " + anno.getDog() + "  " + anno.getDog().hashCode());
         notifierService.notify(content);
         return "发送成功";
     }
