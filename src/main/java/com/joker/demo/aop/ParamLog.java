@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 public class ParamLog {
 
 
-    @Pointcut("execution(* com.joker..*(..))")
-    public void allCut(){}
+    // @Pointcut("execution(* com.joker..*(..))")
+    // public void allCut(){}
 
-    @Pointcut("execution(* com.joker.demo.websocket..*(..))")
-    public void websocket(){}
+    // @Pointcut("execution(* com.joker.demo.websocket..*(..))")
+    // public void websocket(){}
 
-    @Before("(!websocket()) && allCut()")
+    // @Before("(!websocket()) && allCut()")
     public void outputParam(JoinPoint joinPoint){
         System.out.println("methodName = " + joinPoint.getSignature().getName());
         System.out.println("methodArgs = " + objectArray2String(joinPoint.getArgs()));
@@ -31,6 +31,9 @@ public class ParamLog {
             return str;
         }
         for (Object object : objects) {
+            if (null == object){
+                continue;
+            }
             str = str.concat(object.toString());
         }
         return str;
