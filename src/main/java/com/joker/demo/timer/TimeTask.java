@@ -22,6 +22,9 @@ public class TimeTask {
             new LinkedBlockingQueue<Runnable>());
 
 
+    /**
+     * 秒 分 时 日 月 周 年（非必填）
+     * */
     // @Scheduled(cron = "0/30 * * * * ?")
     public void timer(){
         for (int i = 0; i < 50; i++) {
