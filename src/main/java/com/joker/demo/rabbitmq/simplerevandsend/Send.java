@@ -1,4 +1,4 @@
-package com.joker.demo.rabbitmq;
+package com.joker.demo.rabbitmq.simplerevandsend;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

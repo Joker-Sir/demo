@@ -18,7 +18,7 @@ public class MyTasks {
     //     System.out.println(LocalDateTime.now() + " depend on completion time (run per 5 secs .In fact it's not the regular time)");
     // }
 
-    @Scheduled(fixedRate = 5000)
+    // @Scheduled(fixedRate = 5000)
     public void done(){
         try {
             Thread.sleep(1000);
