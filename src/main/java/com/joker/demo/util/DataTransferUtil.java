@@ -3,8 +3,11 @@ package com.joker.demo.util;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import java.io.*;
+import java.nio.channels.FileChannel;
 
 public class DataTransferUtil {
+
+
 
     public static byte[] inputStreamToByte(InputStream is){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -50,6 +53,19 @@ public class DataTransferUtil {
         return file;
     }
 
-
+    /**
+     * in a way that can be optimized by many operating systems
+     * into a very fast transfer directly to or from the filesystem cache.
+     * 节选自FileChannel描述
+     * */
+    public static void copyFile(String from, String to) throws Exception{
+        File fromFile = new File(from);
+        File toFile = new File(to);
+        FileChannel fromChannel = new FileInputStream(fromFile).getChannel();
+        FileChannel toChannel = new FileOutputStream(toFile).getChannel();
+        fromChannel.transferTo(0,fromChannel.size(),toChannel);
+        fromChannel.close();
+        toChannel.close();
+    }
 
 }
