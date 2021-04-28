@@ -52,6 +52,9 @@ public class RPCClient implements AutoCloseable {
 
         channel.basicPublish("", requestQueueName, props, message.getBytes("UTF-8"));
 
+        /**
+         * block the main thread ,in order to get result from the rpcServer
+         * */
         final BlockingQueue<String> response = new ArrayBlockingQueue<>(1);
 
         String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
