@@ -109,6 +109,10 @@ public class PublisherConfirm {
                 }
             };
 
+            //two ConfirmCallback(one is for confirmed messages, one is for nack-ed messages)
+            //ConfirmCallback(sequenceNumber, multiple)
+            //sequenceNumber : identify the confirmed or nack-ed messages
+            //multiple : if false, only one message is confirmed/nack-ed.if true,all messages with a lower or equal sequence number are confirmed/nack-ed
             ch.addConfirmListener(cleanOutstandingConfirms, (sequenceNumber, multiple) -> {
                 String body = outstandingConfirms.get(sequenceNumber);
                 System.err.format("Message with body %s has been nack-ed. Sequence number: %d, multiple: %b%n",body,sequenceNumber,multiple);
