@@ -41,6 +41,9 @@ public class HelloController {
     private ApplicationContext context;
 
     @Autowired
+    ConfigurationAnno anno;
+
+    @Autowired
     HelloController(UserService userService, SmsService smsService, NotifierService notifierService){
         this.userService = userService;
         this.smsService = smsService;
@@ -69,8 +72,6 @@ public class HelloController {
         return "发送成功";
     }
 
-    @Autowired
-    ConfigurationAnno anno;
 
     @RequestMapping(value = "notify", method = RequestMethod.GET)
     public String notify(String content){
