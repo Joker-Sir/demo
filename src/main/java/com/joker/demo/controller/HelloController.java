@@ -1,10 +1,10 @@
 package com.joker.demo.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joker.demo.annotation.NotNullCheck;
-import com.joker.demo.eventlistener.simple.event.SmsEvent;
 import com.joker.demo.justlook.note.ConfigurationAnno;
-import com.joker.demo.pojo.Dog;
+import com.joker.demo.pojo.Cat;
 import com.joker.demo.pojo.User;
 import com.joker.demo.service.NotifierService;
 import com.joker.demo.service.SmsService;
@@ -14,12 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -79,6 +81,18 @@ public class HelloController {
         System.out.println("anno.getDog().hashCode()2 ==----=-==== " + anno.getDog() + "  " + anno.getDog().hashCode());
         notifierService.notify(content);
         return "发送成功";
+    }
+
+
+    @RequestMapping(value = "/cat" , method = RequestMethod.PUT)
+    public String updateCat(@Valid Cat cat, BindingResult bindingResult) throws JsonProcessingException {
+        if (bindingResult.hasErrors()){
+            //默认返回第一个异常提示
+            return bindingResult.getAllErrors().get(0).getDefaultMessage();
+        }
+        String result;
+        result = objectMapper.writeValueAsString(cat);
+        return result;
     }
 
 
