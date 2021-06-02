@@ -56,7 +56,11 @@ public class PdfUtils {
         // llx 和 urx  最小的值决定离左边的距离. lly 和 ury 最大的值决定离下边的距离
         Rectangle signRect = fieldPosition.position;
         columnText.setAlignment(Element.ALIGN_CENTER);
-        columnText.setText(new Paragraph(text,font));
+
+        // 设置字体，如果不设置添加的中文将无法显示
+        // 与前一种方式区别在于 创建chunk时是否有字体 居中无效不显示
+        Paragraph elements = new Paragraph(text, font);
+        columnText.setText(elements);
         columnText.setSimpleColumn(signRect);
         columnText.go();
 
