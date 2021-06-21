@@ -4,6 +4,10 @@ import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ *
+ * opt 路径处理待优化
+ * */
 public class ZipUtils {
 
     public static File packetZip(String targetFile, File file) throws IOException {
@@ -12,14 +16,34 @@ public class ZipUtils {
         return zipFile;
     }
 
-    private static void packetZip(File targetFile, File file) throws IOException {
+    public static void packetZip(File targetFile, File file) throws IOException {
         ZipOutputStream zops = new ZipOutputStream(new FileOutputStream(targetFile));
-        ZipEntry zipEntry = new ZipEntry(file.getName());
-        zops.putNextEntry(zipEntry);
-        byte[] bytes = fileToBytes(file);
-        zops.write(bytes, 0, bytes.length);
+        packetZip(zops, file, file.getPath().substring(0, file.getPath().lastIndexOf(File.separator) + 1));
         zops.close();
     }
+
+    public static void packetZip(ZipOutputStream zops, File file, String relativePath) throws IOException {
+        if (file.isDirectory()){
+            File[] files = file.listFiles();
+            for (File item : files) {
+                if (item.isFile()){
+                    addZipEntry(zops, item, relativePath);
+                }else {
+                    packetZip(zops, item ,relativePath);
+                }
+            }
+        }else {
+            addZipEntry(zops, file, relativePath);
+        }
+    }
+
+    public static void addZipEntry(ZipOutputStream zops, File node,String relativePath) throws IOException {
+        ZipEntry zipEntry = new ZipEntry(node.getCanonicalPath().replace(relativePath, ""));
+        zops.putNextEntry(zipEntry);
+        byte[] bytes = fileToBytes(node);
+        zops.write(bytes, 0, bytes.length);
+    }
+
 
     public static byte[] fileToBytes(File file) {
         byte[] buffer = null;
@@ -42,6 +66,7 @@ public class ZipUtils {
         }
         return buffer;
     }
+
 
 
 }
