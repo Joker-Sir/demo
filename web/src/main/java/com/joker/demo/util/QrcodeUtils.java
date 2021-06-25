@@ -106,11 +106,5 @@ public class QrcodeUtils {
         bufferedImage.flush();
     }
 
-    public static void main(String[] args) throws Exception{
-        QREncode(500,500, "","jpg","D:\\zxing.jpg",new File("D:\\liuchaoxiong\\我的文档\\My Pictures\\desktop.jpg"));
-        File file = new File("D:\\zxing.jpg");
-        QRReader(file);
-    }
-
 
 }
