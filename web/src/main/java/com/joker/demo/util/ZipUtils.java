@@ -22,6 +22,12 @@ public class ZipUtils {
         zops.close();
     }
 
+    public static void packetZip(String targetFile, String file) throws IOException {
+        File target = new File(targetFile);
+        File source = new File(file);
+        packetZip(target, source);
+    }
+
     public static void packetZip(ZipOutputStream zops, File file, String relativePath) throws IOException {
         if (file.isDirectory()){
             File[] files = file.listFiles();

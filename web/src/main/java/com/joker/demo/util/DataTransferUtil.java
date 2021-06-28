@@ -61,11 +61,16 @@ public class DataTransferUtil {
     public static void copyFile(String from, String to) throws Exception{
         File fromFile = new File(from);
         File toFile = new File(to);
-        FileChannel fromChannel = new FileInputStream(fromFile).getChannel();
-        FileChannel toChannel = new FileOutputStream(toFile).getChannel();
+        copyFile(fromFile, toFile);
+    }
+
+    public static void copyFile(File from, File to) throws Exception{
+        FileChannel fromChannel = new FileInputStream(from).getChannel();
+        FileChannel toChannel = new FileOutputStream(to).getChannel();
         fromChannel.transferTo(0,fromChannel.size(),toChannel);
         fromChannel.close();
         toChannel.close();
     }
+
 
 }
