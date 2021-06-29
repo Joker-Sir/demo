@@ -29,7 +29,7 @@ public class DateUtils {
     /**
      * 两个日期之前的相差的天数 不考虑计算时分秒
      * 例如  2008-01-02 23:00:00 ~ 2008-01-03 01:00:00 相差一天
-     * @return int
+     * @return int 相差的天数
      * */
     public static int countDays(Date before, Date after){
         LangUtil.throwIaxIfNull(before,"before");
@@ -42,7 +42,7 @@ public class DateUtils {
         Instant beforeInstant = before.toInstant();
         Instant afterInstant = after.toInstant();
         LocalDate beforeZonedDate = beforeInstant.atZone(ZoneId.systemDefault()).toLocalDate();
-        ZonedDateTime afterZonedDate = afterInstant.atZone(ZoneId.systemDefault());
+        LocalDate afterZonedDate = afterInstant.atZone(ZoneId.systemDefault()).toLocalDate();
         long b_days = beforeZonedDate.getLong(ChronoField.EPOCH_DAY);
         long a_days = afterZonedDate.getLong(ChronoField.EPOCH_DAY);
         return (int)(a_days - b_days);
