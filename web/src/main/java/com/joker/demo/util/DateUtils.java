@@ -1,5 +1,7 @@
 package com.joker.demo.util;
 
+import org.aspectj.util.LangUtil;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -30,6 +32,8 @@ public class DateUtils {
      * @return int
      * */
     public static int countDays(Date before, Date after){
+        LangUtil.throwIaxIfNull(before,"before");
+        LangUtil.throwIaxIfNull(after,"after");
         if (before.after(after)){
             Date temp = before;
             before = after;
@@ -43,8 +47,6 @@ public class DateUtils {
         long a_days = afterZonedDate.getLong(ChronoField.EPOCH_DAY);
         return (int)(a_days - b_days);
     }
-
-
 
 
 
