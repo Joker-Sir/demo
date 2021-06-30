@@ -8,7 +8,11 @@ import java.nio.channels.FileChannel;
 public class DataTransferUtil {
 
 
-
+    /**
+     * 将输入流转为二进制数组
+     * @param is 输入流
+     * @return byte[] 数组
+     * */
     public static byte[] inputStreamToByte(InputStream is){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] bytes = new byte[0];
@@ -27,11 +31,22 @@ public class DataTransferUtil {
         return bytes;
     }
 
+    /**
+     * 数组转为输入流
+     * @param bytes byte数组
+     * @return inpustream 输入流
+     * */
     public static InputStream bytesToInputStream(byte[] bytes){
         InputStream is = new ByteArrayInputStream(bytes);
         return is;
     }
 
+    /**
+     * 将输入流写入到目标文件
+     * @param destPath 目标文件路劲
+     * @param is 数据流
+     * @return file 目标文件
+     * */
     public static File inputStreamToFile(String destPath, InputStream is) {
         File file = new File(destPath);
         OutputStream os = null;
@@ -57,6 +72,8 @@ public class DataTransferUtil {
      * in a way that can be optimized by many operating systems
      * into a very fast transfer directly to or from the filesystem cache.
      * 节选自FileChannel描述
+     * @param from 源文件路径
+     * @param to 目标文件路径
      * */
     public static void copyFile(String from, String to) throws Exception{
         File fromFile = new File(from);
@@ -64,6 +81,11 @@ public class DataTransferUtil {
         copyFile(fromFile, toFile);
     }
 
+    /**
+     * copy File from [from] to [to]
+     * @param from 源文件
+     * @param to 目标文件
+     * */
     public static void copyFile(File from, File to) throws Exception{
         FileChannel fromChannel = new FileInputStream(from).getChannel();
         FileChannel toChannel = new FileOutputStream(to).getChannel();
