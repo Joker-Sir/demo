@@ -11,6 +11,7 @@ import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
 import com.alibaba.excel.write.metadata.WriteSheet;
+import com.alibaba.fastjson.JSON;
 import com.joker.util.easyexcel.DemoData;
 import com.joker.util.easyexcel.DemoDataListener;
 import com.joker.util.easyexcel.DemoReaderListener;
@@ -60,14 +61,12 @@ public class ExcelUtils {
      * 读取excel
      *
      * */
-    public static void read(File source){
-        EasyExcel.read(source, DemoData.class, new DemoReaderListener()).sheet().doRead();
+    public static List read(File source){
+        DemoReaderListener readerListener = new DemoReaderListener();
+        EasyExcel.read(source, DemoData.class, readerListener).sheet().doRead();
+        List list = readerListener.getList();
+        return list;
     }
-
-    public static void main(String[] args) {
-        read(new File("d:\\demo.xlsx"));
-    }
-
 
 
 }

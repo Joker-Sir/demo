@@ -37,6 +37,16 @@ class ExcelUtilsTest {
         }
     }
 
+    @Test
+    void read() {
+        try {
+            List read = ExcelUtils.read(new File("d:\\demo.xlsx"));
+            System.out.println("read.size() = " + read.size());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 
 
