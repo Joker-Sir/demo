@@ -2,27 +2,16 @@ package com.joker.util;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.EasyExcelFactory;
-import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.metadata.CellExtra;
-import com.alibaba.excel.read.builder.ExcelReaderBuilder;
-import com.alibaba.excel.read.listener.ReadListener;
-import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
 import com.alibaba.excel.write.metadata.WriteSheet;
-import com.alibaba.fastjson.JSON;
-import com.joker.util.easyexcel.DemoData;
-import com.joker.util.easyexcel.DemoDataListener;
 import com.joker.util.easyexcel.DemoReaderListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
 * https://www.yuque.com/easyexcel/doc/easyexcel 官方文档
@@ -61,12 +50,13 @@ public class ExcelUtils {
      * 读取excel
      *
      * */
-    public static List read(File source){
+    public static List read(File source, Class clz){
         DemoReaderListener readerListener = new DemoReaderListener();
-        EasyExcel.read(source, DemoData.class, readerListener).sheet().doRead();
+        EasyExcel.read(source, clz, readerListener).sheet().doRead();
         List list = readerListener.getList();
         return list;
     }
+
 
 
 }

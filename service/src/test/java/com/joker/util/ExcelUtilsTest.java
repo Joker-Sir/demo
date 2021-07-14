@@ -40,7 +40,7 @@ class ExcelUtilsTest {
     @Test
     void read() {
         try {
-            List read = ExcelUtils.read(new File("d:\\demo.xlsx"));
+            List read = ExcelUtils.read(new File("d:\\demo.xlsx"), DemoData.class);
             System.out.println("read.size() = " + read.size());
         }catch (Exception e){
             e.printStackTrace();
